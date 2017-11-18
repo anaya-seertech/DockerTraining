@@ -3,7 +3,7 @@ services:
   backend:
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - "27020:27017"
     networks:
         - docker_cont_network
   swagger:
