@@ -22,16 +22,25 @@
 			</div>
 		</form>
 
-		{% for post in posts %}
-			<div class="blog-border">
-				<div class="title">
-					<div> {{ post.title }} </div>
-				</div>
-				<div class="post">
-					<div> {{ post.post }} </div>
-				</div>
-		  	</div>
-		{% endfor %}
+			{% for post in posts %}
+				<div class="blog-border">
+					<div class="title">
+						<div> {{ post.title }} </div>
+						<div class="button-wrapper">
+							<div  class="button">
+								<input type="button" id="input-update" value="UPDATE"></input>
+							</div>
+							<form class="button" action="/remove" method="POST">
+								<input type="hidden" value={{post._id}} name="item-id"/>
+								<input type="submit" id="input-delete" value="REMOVE"></input>
+							</form>
+						</div>
+					</div>
+					<div class="post">
+						<div> {{ post.post }} </div>
+					</div>
+			  	</div>
+			{% endfor %}
 	
 	</body>
 
