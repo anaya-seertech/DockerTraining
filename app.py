@@ -6,8 +6,6 @@ import os
 import socket
 from bson import ObjectId
 
-
-
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, ObjectId):
@@ -38,6 +36,11 @@ def remove():
     delete()
     return redirect(url_for('landing_page'))
 
+@app.route('/edit_form')
+def edit_form():
+    post = get_post()
+    return render_template('edit_blog.html', post=json.loads(post))
+
 @app.route('/remove_all')
 def remove_all():
     db.blogpostDB.delete_many({})
@@ -46,14 +49,18 @@ def remove_all():
 
 
 ## Services
-
 @app.route("/posts", methods=['GET'])
-def get_all_posts():
-    
+def get_all_posts():   
     _posts = db.blogpostDB.find()
     posts = [post for post in _posts]
     return JSONEncoder().encode(posts)
 
+@app.route("/single_post", methods=['GET'])
+def get_post():
+    unique_id = request.args["unique-id"]
+    _posts = db.blogpostDB.find({'_id':ObjectId(unique_id)})
+    posts = [post for post in _posts]
+    return JSONEncoder().encode(posts)
 
 @app.route('/new', methods=['POST'])
 def new():

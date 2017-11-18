@@ -27,9 +27,12 @@
 					<div class="title">
 						<div> {{ post.title }} </div>
 						<div class="button-wrapper">
-							<div  class="button">
-								<input type="button" id="input-update" value="UPDATE"></input>
-							</div>
+							<form class="button" action="/edit_form">
+								<div  class="button">
+									<input type="hidden" value={{post._id}} name="unique-id"/>
+									<input type="submit" value="UPDATE"></input>
+								</div>
+							</form>
 							<form class="button" action="/remove" method="POST">
 								<input type="hidden" value={{post._id}} name="item-id"/>
 								<input type="submit" id="input-delete" value="REMOVE"></input>

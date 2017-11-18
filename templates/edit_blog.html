@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title>
+		My First Blog
+	</title>
+	{% block headCss %}
+		<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/base.css')}}" type="text/css">
+	{% endblock %}
+</head>
+	<body class="body">
+		<h2>Edit blog</h2>
+		<form class="form-border" action="/edit_post" method="POST">
+			{% for value in post %}
+				<div class="title wrapper">
+					<input id="input-title" type="text" name="title" placeholder="Title" value={{value.title}}></input>	
+				</div>
+				<div class="title wrapper">
+					<textarea id="input-post" name="post">{{value.post}}</textarea>
+				</div>
+				<div  class="description wrapper">
+					<input type="submit" id="input-update" value="UPDATE"></input>
+					<input type="submit" id="input-back" value="BACK"></input>
+				</div>
+			{% endfor %}
+		</form>
+	</body>
+
+</html>
+
+
+
+
+
