@@ -26,13 +26,11 @@ def landing_page():
 
 @app.route('/add_post', methods=['POST'])
 def add_post():
-
     new()
     return redirect(url_for('landing_page'))
 
 @app.route('/remove', methods=['POST'])
 def remove():
-    
     delete()
     return redirect(url_for('landing_page'))
 
@@ -40,6 +38,15 @@ def remove():
 def edit_form():
     post = get_post()
     return render_template('edit_blog.html', post=json.loads(post))
+
+@app.route('/edit_post', methods=['POST'])
+def edit_post():
+    if 'input-back' in request.form:
+        return redirect(url_for('landing_page'))
+    elif 'input-update' in request.form:
+        update()
+        return redirect(url_for('landing_page'))
+
 
 @app.route('/remove_all')
 def remove_all():
@@ -86,12 +93,19 @@ def delete():
 
     return JSONEncoder().encode(posts)
 
-### Insert function here ###
+@app.route('/update', methods=['POST'])
+def update():
+    unique_id = request.form['unique-id']
+    item_doc = {
+        'title': request.form['title'],
+        'post': request.form['post']
+    }
+    db.blogpostDB.update_one({'_id':ObjectId(unique_id)}, {"$set": item_doc}, upsert=True)
 
+    _posts = db.blogpostDB.find()
+    posts = [post for post in _posts]
 
-
-############################
-
+    return JSONEncoder().encode(posts)
 
 
 if __name__ == "__main__":
