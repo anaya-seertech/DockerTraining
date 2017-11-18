@@ -61,6 +61,74 @@
         }
       }
     },
+    "/delete": {
+      "delete": {
+        "tags": [
+          "blog post"
+        ],
+        "summary": "Delete a specific blog post",
+        "description": "",
+        "operationId": "deletePost",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Post object that needs to be deleted to the Blog",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blogdeleteDB"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "[{'title':title,'post':post, _id:id}]"
+          }
+        }
+      }
+    },
+    "/update": {
+      "patch": {
+        "tags": [
+          "blog post"
+        ],
+        "summary": "Update a specific blog post",
+        "description": "",
+        "operationId": "updatePost",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Post object that needs to be updated to the Blog",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blogupdateDB"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "[{'title':title,'post':post, _id:id}]"
+          }
+        }
+      }
+    },
     "/posts": {
       "get": {
         "tags": [
@@ -69,6 +137,29 @@
         "summary": "Get all blog posts",
         "description": "",
         "operationId": "getPosts",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "[{'title':title,'post':post, _id:id}]"
+          }
+        }
+      }
+    },
+    "/single_post": {
+      "get": {
+        "tags": [
+          "blog post"
+        ],
+        "summary": "Get single blog post",
+        "description": "",
+        "operationId": "getPost",
         "consumes": [
           "application/json",
           "application/xml"
@@ -103,7 +194,45 @@
         }
       },
       "xml": {
-        "name": "Pet"
+        "name": "Blog"
+      }
+    },
+    "blogdeleteDB": {
+      "type": "object",
+      "required": [
+        "_id"
+      ],
+      "properties": {
+        "_id": {
+          "type": "object",
+          "example": "ObjectId(\"5a103c3091ac3b00199ef8cb\")"
+        }
+      },
+      "xml": {
+        "name": "Blog"
+      }
+    },
+    "blogupdateDB": {
+      "type": "object",
+      "required": [
+        "_id"
+      ],
+      "properties": {
+        "_id": {
+          "type": "object",
+          "example": "ObjectId(\"5a103c3091ac3b00199ef8cb\")"
+        },
+        "title": {
+          "type": "string",
+          "example": "My First Blog Post[Updated]"
+        },
+        "post": {
+          "type": "string",
+          "example": "Lorem Ipsum Dolor"
+        }
+      },
+      "xml": {
+        "name": "Blog"
       }
     }
   }

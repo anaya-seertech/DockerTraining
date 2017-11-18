@@ -83,7 +83,7 @@ def new():
 
     return JSONEncoder().encode(posts[-1])
 
-@app.route('/delete', methods=['POST'])
+@app.route('/delete', methods=['DELETE'])
 def delete():
     item_id = request.form['item-id']
     db.blogpostDB.delete_one({'_id':ObjectId(item_id)})
@@ -93,7 +93,7 @@ def delete():
 
     return JSONEncoder().encode(posts)
 
-@app.route('/update', methods=['POST'])
+@app.route('/update', methods=['PATCH'])
 def update():
     unique_id = request.form['unique-id']
     item_doc = {
